@@ -6,6 +6,9 @@
 #define XPLAY_XTHREAD_H
 
 
+// sleep 毫秒
+void XSleep(int mis);
+
 class XThread {
 public:
     // 启动线程
@@ -16,6 +19,10 @@ public:
 
     // 入门主函数
     virtual void Main(){}
+
+protected:
+    bool isExit = false;
+    bool isRunning = false;
 
 private:
     void ThreadMain();
