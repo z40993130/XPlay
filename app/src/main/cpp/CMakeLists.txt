@@ -45,6 +45,11 @@ add_library( # Sets the name of the library.
         FFDecode.cpp
         IDecode.cpp
         XParameter.cpp
+        IVideoView.cpp
+        GLVideoView.cpp
+        XTexture.cpp
+        XEGL.cpp
+        XShader.cpp
         )
 
 # Searches for a specified prebuilt library and stores the path as a
@@ -66,6 +71,8 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         native-lib
+        GLESv2 XEGL
+        OpenSLES
          android
         avcodec avformat avutil swscale swresample
         # Links the target library to the log library
