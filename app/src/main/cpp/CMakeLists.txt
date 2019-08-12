@@ -71,11 +71,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
         native-lib
-<<<<<<< HEAD
         GLESv2 EGL
-=======
-        GLESv2 XEGL
->>>>>>> 57aac920b1f3e5807a154f81c860bc265dfd3479
         OpenSLES
          android
         avcodec avformat avutil swscale swresample

@@ -6,9 +6,6 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 
 public class XPlay extends GLSurfaceView implements SurfaceHolder.Callback {
-    public XPlay(Context context) {
-        super(context);
-    }
 
     public XPlay(Context context, AttributeSet attrs) {
         super(context, attrs);

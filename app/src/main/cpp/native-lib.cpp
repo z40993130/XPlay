@@ -4,7 +4,6 @@
 
 #include "FFDemux.h"
 #include "XLog.h"
-#include "IDecode.h"
 #include "FFDecode.h"
 #include "XEGL.h"
 
