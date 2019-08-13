@@ -4,8 +4,10 @@
 
 #include "FFDemux.h"
 #include "XLog.h"
+#include "IDecode.h"
 #include "FFDecode.h"
 #include "XEGL.h"
+#include "XShader.h"
 
 class TestObs:public IObserver
 {
@@ -53,5 +55,7 @@ JNIEXPORT void JNICALL
 Java_com_example_zx_xplay_XPlay_InitView(JNIEnv *env, jobject instance, jobject surface) {
     ANativeWindow *win = ANativeWindow_fromSurface(env, surface);
     XEGL::Get()->Init(win);
+    XShader shader;
+    shader.Init();
 
 }

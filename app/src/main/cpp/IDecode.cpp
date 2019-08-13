@@ -45,7 +45,7 @@ void IDecode::Main() {
                 {
                     break;
                 }
-                XLOGE("RecvFrame size: %d", frame.size);
+//                XLOGE("RecvFrame size: %d", frame.size);
                 this->Notify(frame);
             }
         }
