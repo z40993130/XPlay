@@ -148,7 +148,43 @@ bool XShader::Init() {
 
     XLOGI("初始化shader 成功！");
 
-
-
     return true;
+}
+
+void XShader::Draw() {
+    if (!program) {
+        return;
+    }
+
+    // 三维绘制
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+}
+
+void XShader::GetTexture(unsigned int index, int width, int height, unsigned char *buf) {
+    if (texts[index] == 0) {
+        // 材质初始化
+        glGenTextures(1, &texts[index]);
+
+        // 设置纹理属性
+        glBindTexture(GL_TEXTURE_2D, texts[index]);
+        // 缩小过滤器
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        // 设置纹理的格式和大小
+        glTexImage2D(GL_TEXTURE_2D,
+                0, //细节基本 0 默认
+                GL_LUMINANCE, // gpu内部格式 亮度，灰度图
+                width, height, // 拉伸到全屏
+                0, // 边框
+                GL_LUMINANCE, // 数据到像素格式 亮度， 灰度图 要与上面一致
+                GL_UNSIGNED_BYTE, // 像素到数据类型
+                NULL  // 纹理到数据
+                );
+    }
+
+    // 激活第1层纹理，绑定到创建到opengl纹理
+    glActiveTexture(GL_TEXTURE0 + index);
+    glBindTexture(GL_TEXTURE_2D, texts[index]);
+    // 替换纹理内容
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_LUMINANCE, GL_UNSIGNED_BYTE, buf);
 }
