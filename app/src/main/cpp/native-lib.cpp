@@ -22,23 +22,13 @@ public:
 //        XLOGI("TestObs Updata data size id %d", data);
     }
 };
+IVideoView *view = NULL;
 
 extern "C"
 JNIEXPORT
 jint JNI_OnLoad(JavaVM *vm, void *res)
 {
     FFDecode::InitHard(vm);
-    return JNI_VERSION_1_4;
-}
-
-IVideoView *view = NULL;
-
-
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_zx_xplay_MainActivity_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
 
     /////////////////////////
     // 测试用代码
@@ -78,6 +68,21 @@ Java_com_example_zx_xplay_MainActivity_stringFromJNI(
 //        XData d = de->Read();
 //        XLOGI("Read data size is %d", d.size);
 //    }
+
+
+
+    return JNI_VERSION_1_4;
+}
+
+
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_example_zx_xplay_MainActivity_stringFromJNI(
+        JNIEnv *env,
+        jobject /* this */) {
+    std::string hello = "Hello from C++";
+
+
 
     return env->NewStringUTF(hello.c_str());
 }
