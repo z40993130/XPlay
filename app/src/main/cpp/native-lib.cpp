@@ -23,6 +23,14 @@ public:
     }
 };
 
+extern "C"
+JNIEXPORT
+jint JNI_OnLoad(JavaVM *vm, void *res)
+{
+    FFDecode::InitHard(vm);
+    return JNI_VERSION_1_4;
+}
+
 IVideoView *view = NULL;
 
 
@@ -40,7 +48,7 @@ Java_com_example_zx_xplay_MainActivity_stringFromJNI(
     de->Open("/sdcard/1080.mp4");
 
     IDecode *vdecode = new FFDecode();
-    vdecode->Open(de->GetVPara());
+    vdecode->Open(de->GetVPara(), true);
 
     IDecode *adecode = new FFDecode();
     adecode->Open(de->GetAPara());
