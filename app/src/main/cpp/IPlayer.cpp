@@ -9,6 +9,7 @@
 #include "IVideoView.h"
 #include "IResample.h"
 #include "XLog.h"
+#include "FFDecode.h"
 
 IPlayer *IPlayer::Get(unsigned char index)
 {
