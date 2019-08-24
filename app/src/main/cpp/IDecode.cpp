@@ -26,6 +26,20 @@ void IDecode::Update(XData pkt) {
 void IDecode::Main() {
     while (!isExit) {
         packsMutex.lock();
+
+        // 判断音视频同步
+//        XLOGI("syncPts:%d, pts:%d", syncPts, pts);
+        if (!isAudio && syncPts > 0) {
+            if (syncPts < pts)
+            {
+                packsMutex.unlock();
+//                XLOGI("video sleep");
+                XSleep(1);
+                continue;
+            }
+        }
+
+
         if (packs.empty()) {
             packsMutex.unlock();
             XSleep(1);
@@ -46,6 +60,7 @@ void IDecode::Main() {
                     break;
                 }
 //                XLOGE("RecvFrame size: %d", frame.size);
+                pts = frame.pts;
                 this->Notify(frame);
             }
         }
