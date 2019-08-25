@@ -12,26 +12,54 @@ public:
     EGLDisplay display = EGL_NO_DISPLAY;
     EGLSurface surface = EGL_NO_SURFACE;
     EGLContext context = EGL_NO_CONTEXT;
+    std::mutex mux;
+
     virtual void Draw()
     {
+        mux.lock();
         if (display == EGL_NO_DISPLAY || surface == EGL_NO_SURFACE) {
             return;
         }
         eglSwapBuffers(display, surface);
+        mux.unlock();
+    }
+    void Close() {
+        mux.lock();
+        if (display == EGL_NO_DISPLAY) {
+            mux.unlock();
+            return;
+        }
+        eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_SURFACE);
+        if (surface != EGL_NO_SURFACE) {
+            eglDestroySurface(display, surface);
+        }
+        if (context != EGL_NO_CONTEXT) {
+            eglDestroyContext(display, context);
+        }
+        eglTerminate(display);
+
+        display = EGL_NO_DISPLAY;
+        surface = EGL_NO_SURFACE;
+        context = EGL_NO_CONTEXT;
+        mux.unlock();
     }
     virtual bool Init(void *win)
     {
         ANativeWindow *nwin = (ANativeWindow *)win;
+        Close();
         // 初始化EGL
+        mux.lock();
         // 1 获取EGLDisplay对象，显示设备
         display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
         if (display == EGL_NO_DISPLAY) {
+            mux.unlock();
             XLOGE("eglGetDisPlay failed");
             return false;
         }
         XLOGE("eglGetDisplay success!");
         //2 初始化Display
         if (EGL_TRUE != eglInitialize(display, 0, 0)) {
+            mux.unlock();
             XLOGE("eglInitiallize failed!");
             return false;
         }
@@ -47,6 +75,7 @@ public:
         EGLConfig config = 0;
         EGLint numConfigs = 0;
         if (EGL_TRUE != eglChooseConfig(display, configSpec, &config, 1, &numConfigs)) {
+            mux.unlock();
             XLOGE("eglChooseConfig failed!");
             return false;
         }
@@ -58,17 +87,18 @@ public:
         context = eglCreateContext(display, config, EGL_NO_CONTEXT, ctxAttr);
         if (context == EGL_NO_CONTEXT)
         {
+            mux.unlock();
             XLOGE("eglCreateContext failed!");
             return false;
         }
         XLOGE("eglCreateContext success!");
         if (EGL_TRUE != eglMakeCurrent(display, surface, surface, context)) {
+            mux.unlock();
             XLOGE("eglMakeCurrent failed!");
             return false;
         }
         XLOGE("eglMakeCurrent success!");
-
-
+        mux.unlock();
         return true;
     }
 };
