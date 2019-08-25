@@ -15,6 +15,8 @@ public:
     // 打开文件,或者流媒体 rmtp http trsp
     virtual bool Open(const char *url) = 0;
 
+    virtual void Close() = 0;
+
     // 获取视频参数
     virtual XParameter GetVPara() = 0;
     // 获取音频参数
