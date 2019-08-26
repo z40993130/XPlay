@@ -18,7 +18,7 @@ public:
         XEGL::Get()->Close();
         sh.Close();
         mux.unlock();
-        delete(this);
+        delete this;
     }
 
     virtual bool Init(void *win, XTextureType type)

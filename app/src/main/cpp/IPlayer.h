@@ -22,6 +22,7 @@ public:
     virtual bool Open(const char *path);
     virtual void InitView(void *win);
     virtual bool Start();
+    virtual void Close();
 
     // 是否硬解码
     bool isHardDecode = true;

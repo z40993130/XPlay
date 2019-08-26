@@ -4,6 +4,14 @@
 
 #include "IAudioPlay.h"
 #include "XLog.h"
+void IAudioPlay::Clear() {
+    framesMutes.lock();
+    while (!frames.empty()) {
+        frames.front().Drop();
+        frames.pop_front();
+    }
+    framesMutes.unlock();
+}
 XData IAudioPlay::GetData() {
     XData d;
     while (!isExit) {

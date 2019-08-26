@@ -15,6 +15,7 @@ void FFDecode::InitHard(void *vm)
     av_jni_set_java_vm(vm, 0);
 }
 void FFDecode::Close() {
+    IDecode::Clear();
     mux.lock();
     pts = 0;
     if (frame)
