@@ -116,16 +116,11 @@ bool IPlayer::Open(const char *path) {
 bool IPlayer::Start() {
     mux.lock();
 
-    if (audioPlay) {
-        audioPlay->StartPlay(outPara);
-    }
+    // 重要！！！
+    // 线程启动顺序不同会导致视频丢掉一部分，后面多次启动场景无法播放。（与视频中讲的顺序不一样）
 
     if (vdecode) {
         vdecode->Start();
-    }
-
-    if (adecode) {
-        adecode->Start();
     }
 
     if (!demux || !demux->Start()) {
@@ -133,7 +128,28 @@ bool IPlayer::Start() {
         XLOGE("demux->Start failed!");
         return false;
     }
+    if (adecode) {
+        adecode->Start();
+    }
+    if (audioPlay) {
+        audioPlay->StartPlay(outPara);
+    }
 
+
+//    if (!demux || !demux->Start()) {
+//        mux.unlock();
+//        XLOGE("demux->Start failed!");
+//        return false;
+//    }
+//    if (adecode) {
+//        adecode->Start();
+//    }
+//    if (audioPlay) {
+//        audioPlay->StartPlay(outPara);
+//    }
+//    if (vdecode) {
+//        vdecode->Start();
+//    }
     XThread::Start();
     mux.unlock();
     return true;
