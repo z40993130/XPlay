@@ -16,7 +16,7 @@ public:
         static IPlayerProxy proxy;
         return &proxy;
     }
-    void Init(void *vm);
+    void Init(void *vm = 0);
     virtual bool Open(const char *path);
     virtual void InitView(void *win);
     virtual bool Start();

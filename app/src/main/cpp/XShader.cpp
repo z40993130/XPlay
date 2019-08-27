@@ -119,7 +119,7 @@ void XShader::Close() {
     }
     if(fsh)
     {
-        glDeleteProgram(fsh);
+        glDeleteShader(fsh);
     }
     if(vsh) {
         glDeleteShader(vsh);

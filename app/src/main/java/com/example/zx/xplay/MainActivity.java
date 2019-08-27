@@ -1,7 +1,10 @@
 package com.example.zx.xplay;
 
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +17,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //È¥µô±êÌâÀ¸
+        supportRequestWindowFeature( Window.FEATURE_NO_TITLE);
+        //È«ÆÁ£¬Òþ²Ø×´Ì¬
+        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN ,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+//        ÆÁÄ»ÎªºáÆÁ
+        setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
+
         setContentView(R.layout.activity_main);
 
         // Example of a call to a native method
