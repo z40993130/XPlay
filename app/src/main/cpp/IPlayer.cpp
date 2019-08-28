@@ -157,6 +157,7 @@ bool IPlayer::Start() {
 
 void IPlayer::InitView(void *win) {
     if (videoView) {
+        videoView->Close(); // 每次打开前关闭上次，解决多次打开视频不正常问题
         videoView->SetRender(win);
     }
 }

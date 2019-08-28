@@ -1,42 +1,51 @@
 package com.example.zx.xplay;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "MainActivity";
 
     // Used to load the 'native-lib' library on application startup.
     static {
         System.loadLibrary("native-lib");
     }
+    private Button btn_open;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //È¥µô±êÌâÀ¸
+        //å»æ‰æ ‡é¢˜æ 
         supportRequestWindowFeature( Window.FEATURE_NO_TITLE);
-        //È«ÆÁ£¬Òş²Ø×´Ì¬
+        // å…¨å±ï¼Œéšè—çŠ¶æ€
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN ,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
-//        ÆÁÄ»ÎªºáÆÁ
+        // å±å¹•ä¸ºæ¨ªå±
         setRequestedOrientation( ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE );
 
         setContentView(R.layout.activity_main);
+        btn_open = findViewById(R.id.open_button);
+        btn_open.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "open onClick");
+                Intent intent = new Intent(MainActivity.this, Openurl.class);
+                startActivity(intent);
+            }
+        });
 
-        // Example of a call to a native method
-        TextView tv = findViewById(R.id.sample_text);
-        tv.setText(stringFromJNI());
     }
 
-    /**
-     * A native method that is implemented by the 'native-lib' native library,
-     * which is packaged with this application.
-     */
-    public native String stringFromJNI();
+
 }

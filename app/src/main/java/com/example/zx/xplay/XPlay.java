@@ -12,14 +12,16 @@ public class XPlay extends GLSurfaceView implements SurfaceHolder.Callback, GLSu
 
     public XPlay(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        // android8.0 需要设置
+        setRenderer(this);
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         InitView(holder.getSurface()); // 初始化openGl 显示
 
-        // android8.0 需要设置
-        setRenderer(this);
+
     }
 
     @Override
