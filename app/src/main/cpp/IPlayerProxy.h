@@ -17,10 +17,14 @@ public:
         return &proxy;
     }
     void Init(void *vm = 0);
+
     virtual bool Open(const char *path);
     virtual void InitView(void *win);
     virtual bool Start();
     virtual void Close();
+
+    // 获取当前的播放速度 0.0-1.0
+    virtual double PlayPos();
 
 protected:
     IPlayerProxy(){};

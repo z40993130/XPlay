@@ -44,4 +44,10 @@ Java_com_example_zx_xplay_Openurl_Open(JNIEnv *env, jobject instance, jstring ur
     IPlayerProxy::Get()->Start();
 
     env->ReleaseStringUTFChars(url_, url);
+}extern "C"
+JNIEXPORT jdouble JNICALL
+Java_com_example_zx_xplay_MainActivity_PlayPos(JNIEnv *env, jobject instance) {
+
+    // TODO
+    return IPlayerProxy::Get()->PlayPos();
 }

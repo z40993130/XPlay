@@ -66,7 +66,7 @@ void SLAudioPlay::PlayCall(void *bufq) {
     mux.lock();
     if (pcmQue && *pcmQue)
     {
-        (*bf)->Enqueue(bf, buf, d.size);
+        (*pcmQue)->Enqueue(pcmQue, buf, d.size);
     }
     mux.unlock();
     d.Drop();

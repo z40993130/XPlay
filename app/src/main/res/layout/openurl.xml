@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="rtmp://live.hkstv.hk.lxdns.com/live/hks"/>
+                android:text="rtmp://media3.sinovision.net:1935/live/livestream"/>
             <Button
                 android:id="@+id/playRtmp"
                 android:layout_width="wrap_content"

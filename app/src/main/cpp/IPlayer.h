@@ -24,9 +24,12 @@ public:
     virtual bool Start();
     virtual void Close();
 
+    // 获取当前的播放进度 0.0 ~ 1.0
+    virtual double PlayPos();
     // 是否硬解码
     bool isHardDecode = true;
 
+    // 音频输出配置参数
     XParameter outPara;
     IDemux *demux = 0;
     IDecode *vdecode = 0;

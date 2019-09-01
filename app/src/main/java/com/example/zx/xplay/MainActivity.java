@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.SeekBar;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Runnable {
 
     private static final String TAG = "MainActivity";
 
@@ -20,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
     private Button btn_open;
-
+    private SeekBar seek;
+    private Thread th;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         btn_open = findViewById(R.id.open_button);
+        seek = findViewById(R.id.aplayseek);
+        seek.setMax(1000);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +48,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        th = new Thread(this);
+        th.start();
     }
 
+    // 播放进度显示
+    @Override
+    public void run() {
+        for (; ; ) {
+            seek.setProgress((int)(PlayPos() * 1000));
+            try {
+                Thread.sleep(40);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public native double PlayPos();
 }
