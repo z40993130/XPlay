@@ -19,7 +19,7 @@ void XThread::SetPause(bool isP) {
         if (isPausing == isP) {
             break;
         }
-
+        XSleep(10); //不睡眠播放失败
     }
 }
 
