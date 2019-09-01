@@ -18,6 +18,7 @@ public:
     {
         mux.lock();
         if (display == EGL_NO_DISPLAY || surface == EGL_NO_SURFACE) {
+            mux.unlock(); // 前几次提交这里没有释放锁，播放完成后会锁死
             return;
         }
         eglSwapBuffers(display, surface);

@@ -13,6 +13,8 @@ class FFDemux : public IDemux {
 public:
 // 打开文件,或者流媒体 rmtp http trsp
     virtual bool Open(const char *url);
+    // seek 位置 pos 0.0 ~ 1.0
+    virtual bool Seek(double pos);
     virtual void Close();
 
     virtual XParameter GetVPara();

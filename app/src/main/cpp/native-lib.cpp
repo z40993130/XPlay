@@ -43,11 +43,19 @@ Java_com_example_zx_xplay_Openurl_Open(JNIEnv *env, jobject instance, jstring ur
     IPlayerProxy::Get()->Open(url);
     IPlayerProxy::Get()->Start();
 
+
     env->ReleaseStringUTFChars(url_, url);
 }extern "C"
 JNIEXPORT jdouble JNICALL
 Java_com_example_zx_xplay_MainActivity_PlayPos(JNIEnv *env, jobject instance) {
-
-    // TODO
     return IPlayerProxy::Get()->PlayPos();
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_zx_xplay_MainActivity_Seek(JNIEnv *env, jobject instance, jdouble pos) {
+    IPlayerProxy::Get()->Seek(pos);
+
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_example_zx_xplay_XPlay_PlayOrPause(JNIEnv *env, jobject instance) {
+    IPlayerProxy::Get()->SetPause(!IPlayerProxy::Get()->IsPause());
 }

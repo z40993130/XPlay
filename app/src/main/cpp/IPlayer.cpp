@@ -86,20 +86,42 @@ double IPlayer::PlayPos() {
     double pos = 0.0;
     mux.lock();
     int total = 0;
-    if (demux)
-    {
+    if (demux) {
         total = demux->totalMs;
     }
-    if (total > 0)
-    {
-        if (vdecode)
-        {
-            pos = (double)vdecode->pts/(double)total;
+    if (total > 0) {
+        if (vdecode) {
+            pos = (double) vdecode->pts / (double) total;
         }
     }
     mux.unlock();
     return pos;
 
+}
+void IPlayer::SetPause(bool isP) {
+    mux.lock();
+    XThread::SetPause(isP);
+    if (demux) {
+        demux->SetPause(isP);
+    }
+    if (vdecode) {
+        vdecode->SetPause(isP);
+    }
+    if (adecode) {
+        adecode->SetPause(isP);
+    }
+    if (audioPlay) {
+        audioPlay->SetPause(isP);
+    }
+    mux.unlock();
+}
+
+bool IPlayer::Seek(double pos) {
+    bool re = false;
+    mux.lock();
+    re = demux->Seek(pos);
+    mux.unlock();
+    return re;
 }
 
 bool IPlayer::Open(const char *path) {

@@ -20,9 +20,18 @@ public:
     // 入门主函数
     virtual void Main(){}
 
+    virtual void SetPause(bool isP);
+    virtual bool IsPause()
+    {
+        isPausing = isPause;
+        return isPause;
+    }
+
 protected:
     bool isExit = false;
     bool isRunning = false;
+    bool isPause = false;
+    bool isPausing = false;
 
 private:
     void ThreadMain();

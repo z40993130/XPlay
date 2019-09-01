@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 
 
-public class MainActivity extends AppCompatActivity implements Runnable {
+public class MainActivity extends AppCompatActivity implements Runnable, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = "MainActivity";
 
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements Runnable {
         btn_open = findViewById(R.id.open_button);
         seek = findViewById(R.id.aplayseek);
         seek.setMax(1000);
+        seek.setOnSeekBarChangeListener(this);
         btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,4 +68,20 @@ public class MainActivity extends AppCompatActivity implements Runnable {
     }
 
     public native double PlayPos();
+    public native void Seek(double pos);
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+        Seek((double)seekBar.getProgress() / (double)seekBar.getMax());
+    }
 }
