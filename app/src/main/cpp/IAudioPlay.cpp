@@ -14,7 +14,7 @@ void IAudioPlay::Clear() {
 }
 XData IAudioPlay::GetData() {
     XData d;
-    isRunning = false;
+    isRunning = true;
     while (!isExit) {
         if (IsPause()) {
             XSleep(2);

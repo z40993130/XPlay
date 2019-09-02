@@ -27,6 +27,7 @@ void FFDemux::Close() {
 bool FFDemux::Seek(double pos) {
     if (pos < 0 || pos > 1) {
         XLOGE("Seek value must 0.0-1.0");
+        return false;
     }
     bool re = false;
     mux.lock();

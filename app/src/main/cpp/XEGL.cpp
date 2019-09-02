@@ -30,7 +30,7 @@ public:
             mux.unlock();
             return;
         }
-        eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_SURFACE);
+        eglMakeCurrent(display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
         if (surface != EGL_NO_SURFACE) {
             eglDestroySurface(display, surface);
         }
